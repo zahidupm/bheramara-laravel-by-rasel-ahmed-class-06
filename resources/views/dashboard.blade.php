@@ -9,7 +9,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
+                    <form action="{{route('add-post')}}"  method="post">
+                        @csrf
+                        <p><input type="text" name="title" id="" placeholder="Post Title"></p>
+                        <p><textarea name="content" id="" cols="30" rows="10"></textarea></p>
+                        <button type="submit">Add Post</button>
+                    </form>
                 </div>
             </div>
         </div>
