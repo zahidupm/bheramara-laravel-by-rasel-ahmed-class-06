@@ -19,6 +19,10 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->save();
 
-        return 'Post is saved. ID is:' . $post->id;
+        return redirect()->route('dashboard');
+    }
+
+    public function index() {
+        return view('posts');
     }
 }

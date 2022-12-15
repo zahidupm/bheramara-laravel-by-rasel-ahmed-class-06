@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->dateTime('date');
+            $table->dateTime('delete_date');
             $table->text('content');
             $table->timestamps();
         });

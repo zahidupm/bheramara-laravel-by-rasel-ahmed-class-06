@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,12 +24,12 @@ Route::get('/about', function () {
     return view('about');
 });
 
-Route::get('/posts', function () {
-    return view('posts');
-})->middleware('auth');
-
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $posts = Post::all();
+    // dd($posts);
+    return view('dashboard', [
+        'posts' => $posts
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -37,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // add a post
+    Route::get('/posts', [PostController::class, 'index'])->name('posts');
     Route::post('/add-post', [PostController::class, 'add'])->name('add-post');
 });
 
