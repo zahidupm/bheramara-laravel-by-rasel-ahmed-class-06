@@ -11,8 +11,8 @@
                 <div class="p-6 text-gray-900">
                     <form action="{{route('add-post')}}"  method="post">
                         @csrf
-                        <p><input type="text" name="title" id="" placeholder="Post Title"></p>
-                        <p><textarea name="content" id="" cols="30" rows="10"></textarea></p>
+                        <p><input type="text" value="{{old('title')}}" name="title" id="" placeholder="Post Title"></p>
+                        <p><textarea name="content" id="" cols="30" rows="10">{{old('content')}}</textarea></p>
                         <button type="submit">Add Post</button>
                     </form>
                 </div>
