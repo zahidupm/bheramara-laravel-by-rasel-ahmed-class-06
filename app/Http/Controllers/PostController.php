@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Flasher\Prime\FlasherInterface;
 
 class PostController extends Controller
 {
-    public function add(Request $request) {
+    public function add(Request $request, FlasherInterface $flasher) {
         $request->validate([
             'title' => 'required',
             'content' => 'required'
@@ -18,6 +19,8 @@ class PostController extends Controller
         $post->date = now();
         $post->content = $request->content;
         $post->save();
+
+        $flasher->addSuccess("Post added successfully");
 
         return redirect()->route('dashboard');
     }
