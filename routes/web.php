@@ -40,6 +40,9 @@ Route::middleware('auth')->group(function () {
     // add a post
     Route::get('/posts', [PostController::class, 'index'])->name('posts');
     Route::post('/add-post', [PostController::class, 'add'])->name('add-post');
+    Route::get('/edit-post/{id}', [PostController::class, 'edit'])->name('edit-post');
+    Route::post('/update-post/{id}', [PostController::class, 'update'])->name('update-post');
+    Route::post('/delete-post/{id}', [PostController::class, 'delete'])->name('delete-post');
 });
 
 require __DIR__.'/auth.php';

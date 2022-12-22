@@ -28,4 +28,44 @@ class PostController extends Controller
     public function index() {
         return view('posts');
     }
+
+    public function edit($id, FlasherInterface $flasher) {
+        $post = Post::find($id);
+
+        if(empty($post)){
+            $flasher->addError('Post not found');
+            return redirect()->route('dashboard');
+        }
+
+        return view('edit-post', [
+            'post' => $post,
+        ]);
+    }
+
+    public function update($id, Request $request, FlasherInterface $flasher) {
+        $post = POST::findOrFail($id);
+
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->save();
+
+        $flasher->addSuccess('Post updated successfully');
+
+        return redirect()->route('dashboard');
+    }
+
+    public function delete($id, FlasherInterface $flasher) {
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        $flasher->addSuccess('Post deleted successfully');
+        return redirect()->route('dashboard');
+    }
+
+
 }
