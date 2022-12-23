@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Flasher\Prime\FlasherInterface;
+use Illuminate\Support\Facades\Auth;
+use App\Notifications\PostCreated;
 
 class PostController extends Controller
 {
@@ -19,6 +21,9 @@ class PostController extends Controller
         $post->date = now();
         $post->content = $request->content;
         $post->save();
+
+        $user = Auth::user();
+        $user->notify(new PostCreated($post));
 
         $flasher->addSuccess("Post added successfully");
 
